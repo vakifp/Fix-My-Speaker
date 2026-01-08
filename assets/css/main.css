@@ -4178,3 +4178,16 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+.sound{
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: transparent;
+  color: var(--heading-color);
+  text-decoration: none;
+  border: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+ 

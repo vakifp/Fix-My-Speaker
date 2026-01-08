@@ -337,18 +337,19 @@
 
     </div>
 
+
     <div class="portfolio-conclusion" data-aos="fade-up" data-aos-delay="400">
       <div class="conclusion-content text-center">
-        <h4>Ready to fix your speaker?</h4>
-        <p>Follow these three simple stages and enjoy clear, crisp sound on your device again.</p>
-        <div class="conclusion-actions">
-          <a href="#services" class="primary-action">
-            Start Fixing <i class="bi bi-arrow-right"></i>
-          </a>
-          <a href="#portfolio" class="secondary-action">
-            Repeat Steps
-          </a>
-        </div>
+        <h4>Left & Right Speaker Test</h4>
+        <p>Use this test to check if both speaker channels are working properly.</p>
+  <div class="sound-actions mt-3">
+    <button class="sound me-3" onclick="playLeft()">
+    Play Left Speaker
+    </button>
+    <button class="sound" onclick="playRight()">
+      Play Right Speaker
+    </button>
+  </div>
       </div>
     </div>
 
@@ -1004,7 +1005,43 @@
 
   <!-- Preloader -->
   <div id="preloader"></div>
+<script>
+let audioCtx;
 
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+function playTone(panValue) {
+  initAudio();
+
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  const panner = audioCtx.createStereoPanner();
+
+  oscillator.type = "sine";
+  oscillator.frequency.value = 440; // Test tone (A4)
+  gainNode.gain.value = 0.3;
+  panner.pan.value = panValue; // -1 = Left, +1 = Right
+
+  oscillator.connect(gainNode);
+  gainNode.connect(panner);
+  panner.connect(audioCtx.destination);
+
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 1.2);
+}
+
+function playLeft() {
+  playTone(-1);
+}
+
+function playRight() {
+  playTone(1);
+}
+</script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
